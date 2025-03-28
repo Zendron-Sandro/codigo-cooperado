@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Código Cooperado</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" href="icon-512x512.png">
+  <meta name="theme-color" content="#00c1ff"/>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 700px;
+      margin: 40px auto;
+      padding: 20px;
+      background-color: #f8f9fa;
+      color: #3e3e40;
+      line-height: 1.6;
+    }
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+    h2 {
+      color: #00c1ff;
+      margin-bottom: 10px;
+    }
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #00c1ff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+  <div style='text-align:center; margin-bottom: 20px;'>
+    <img src='icon-512x512.png' alt='Logo' style='max-height: 60px;'>
+  </div>
+  <div class="card">
+    <h2 id="section-title"></h2>
+    <p id="section-content"></p>
+  </div>
+  <div class="buttons">
+    <button onclick="prevSection()" id="prev">Anterior</button>
+    <button onclick="nextSection()" id="next">Próximo</button>
+  </div>
+
+  <script>
+    const sections = [
+      {
+        title: "Introdução",
+        content: "Este módulo aborda a ética e a coerência em relações profissionais, com foco em contratações na modalidade PJ ou cooperado e o respeito aos acordos firmados."
+      },
+      {
+        title: "Contexto Organizacional",
+        content: "Relações firmadas sob regime PJ ou cooperado geralmente oferecem remuneração superior. É fundamental que ambas as partes compreendam e respeitem o pacto estabelecido."
+      },
+      {
+        title: "Condutas Inadequadas",
+        content: "- Buscar vantagens financeiras no regime PJ e, após o encerramento, pleitear vínculo CLT.\n- Contradição entre a escolha inicial e a reivindicação posterior.\n- Quebra da confiança e da ética contratual."
+      },
+      {
+        title: "Recomendações Estratégicas",
+        content: "- Contratos claros com cláusulas específicas.\n- Declaração formal de ciência por parte do contratado.\n- Documentação que evidencie autonomia e ausência de vínculo.\n- Promoção de cultura ética contínua."
+      },
+      {
+        title: "Compromisso Microservice",
+        content: "A Microservice reafirma seu compromisso com relações éticas, transparentes e sustentáveis. Ética e respeito mútuo são inegociáveis."
+      }
+    ];
+
+    let index = 0;
+    const titleEl = document.getElementById('section-title');
+    const contentEl = document.getElementById('section-content');
+    const prevBtn = document.getElementById('prev');
+    const nextBtn = document.getElementById('next');
+
+    function renderSection() {
+      titleEl.textContent = sections[index].title;
+      contentEl.textContent = sections[index].content;
+      prevBtn.disabled = index === 0;
+      nextBtn.disabled = index === sections.length - 1;
+    }
+
+    function nextSection() {
+      if (index < sections.length - 1) index++;
+      renderSection();
+    }
+
+    function prevSection() {
+      if (index > 0) index--;
+      renderSection();
+    }
+
+    renderSection();
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js');
+    }
+  </script>
+</body>
+</html>
